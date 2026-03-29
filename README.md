@@ -1,285 +1,221 @@
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>10 Telegram Прокси</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram Прокси</title>
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: system-ui, -apple-system, sans-serif;
-            padding: 20px;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 400px;
-        }
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#052e16,#064e3b);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:system-ui;
+    color:#fff;
+    padding:20px;
+}
 
-        .info-text {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
+.container{max-width:500px;width:100%}
 
-        .info-text p {
-            margin: 8px 0;
-            font-size: 14px;
-            line-height: 1.4;
-        }
+.info{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(34,197,94,.3);
+    padding:16px;
+    border-radius:18px;
+    text-align:center;
+    margin-bottom:20px;
+}
 
-        .info-text p:first-child {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
+/* ===== TOGGLE ===== */
 
-        .info-text p:last-child {
-            color: #fbbf24;
-            font-size: 13px;
-        }
+.toggle{
+    width:100%;
+    height:50px;
+    background:#022c22;
+    border-radius:30px;
+    position:relative;
+    margin-bottom:20px;
+    cursor:pointer;
+}
 
-        .buttons-wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            width: 100%;
-        }
+.toggle-circle{
+    width:50%;
+    height:100%;
+    background:#22c55e;
+    border-radius:30px;
+    position:absolute;
+    top:0;
+    left:0;
+    transition:.3s;
+}
 
-        .column {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.toggle.active .toggle-circle{
+    left:50%;
+}
 
-        button {
-            background: #3b82f6;
-            border: none;
-            padding: 14px 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: system-ui, sans-serif;
-            width: 100%;
-            text-align: center;
-        }
+.toggle-labels{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    font-weight:600;
+    pointer-events:none;
+}
 
-        button:hover {
-            background: #2563eb;
-            transform: scale(1.02);
-        }
+/* ===== GRID ===== */
 
-        button:active {
-            transform: scale(0.98);
-        }
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:20px;
+}
 
-        .qr-section {
-            margin-top: 24px;
-            text-align: center;
-        }
+button.proxy{
+    background:#16a34a;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
 
-        .qr-container {
-            background: white;
-            padding: 16px;
-            border-radius: 20px;
-            display: inline-block;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
+button.proxy:hover{
+    background:#22c55e;
+    transform:scale(1.03);
+}
 
-        .qr-container canvas {
-            display: block;
-            margin: 0 auto;
-            border-radius: 12px;
-        }
+/* ===== SHARE ===== */
 
-        .qr-text {
-            margin-top: 12px;
-            color: #94a3b8;
-            font-size: 12px;
-            word-break: break-all;
-        }
+.share-btn{
+    width:100%;
+    background:#22c55e;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    transition:.2s;
+}
 
-        .qr-text a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
+.share-btn:hover{
+    background:#4ade80;
+    transform:scale(1.02);
+}
 
-        .qr-text a:hover {
-            text-decoration: underline;
-        }
-
-        .share-btn {
-            margin-top: 12px;
-            background: #22c55e;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .share-btn:hover {
-            background: #16a34a;
-            transform: scale(1.02);
-        }
-
-        @media (max-width: 480px) {
-            .buttons-wrapper {
-                gap: 12px;
-            }
-            .column {
-                gap: 10px;
-            }
-            button {
-                padding: 12px 0;
-                font-size: 14px;
-            }
-            .info-text {
-                padding: 12px;
-                margin-bottom: 16px;
-            }
-            .info-text p {
-                font-size: 12px;
-            }
-            .info-text p:first-child {
-                font-size: 14px;
-            }
-            .qr-container {
-                padding: 12px;
-            }
-            .qr-container canvas {
-                width: 140px;
-                height: 140px;
-            }
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="info-text">
-            <p>Выберите один из прокси-серверов</p>
-            <p>Если один не работает, попробуйте другой</p>
-        </div>
-        <div class="buttons-wrapper">
-            <div class="column" id="leftColumn"></div>
-            <div class="column" id="rightColumn"></div>
-        </div>
+<div class="container">
 
-        <div class="qr-section">
-            <div class="qr-container">
-                <div id="qrcode"></div>
-            </div>
-            <div class="qr-text">
-                <p>тсканируйте QR-код, чтобы поделиться сайтом с другом</p>
-                <p><a href="https://mrrdanya.github.io/Proxy/" target="_blank">https://mrrdanya.github.io/Proxy/</a></p>
-            </div>
-            <button class="share-btn" id="shareBtn">
-                скопировать ссылку
-            </button>
-        </div>
+<div class="info">
+🔐 Выберите прокси<br>
+💡 Если не работает — попробуйте другой
+</div>
+
+<!-- TOGGLE -->
+<div class="toggle" id="toggle" onclick="switchPage()">
+    <div class="toggle-circle"></div>
+    <div class="toggle-labels">
+        <span>1</span>
+        <span>2</span>
     </div>
+</div>
 
-    <script>
-        // Ссылка на сайт
-        const siteUrl = "https://mrrdanya.github.io/Proxy/";
-        
-        // Генерация QR-кода
-        new QRCode(document.getElementById("qrcode"), {
-            text: siteUrl,
-            width: 160,
-            height: 160,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
+<div class="grid" id="grid"></div>
+
+<button class="share-btn" onclick="share()">📤 Поделиться сайтом</button>
+
+</div>
+
+<script>
+
+// =================== ПРОКСИ ===================
+
+const proxies = [
+"tg://proxy?server=77.221.140.46&port=8443&secret=7lGCP4KcxEDl19RqQ4-5fxR2a3ZkMzMxLm9rY2RuLnJ1",
+"tg://proxy?server=213.219.212.245&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
+"tg://proxy?server=37.139.34.153&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
+"tg://proxy?server=37.139.32.18&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
+"tg://proxy?server=146.185.242.117&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
+"tg://proxy?server=146.185.209.244&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
+"tg://proxy?server=he.65.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=he.17.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=he.17.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=he.108.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
+
+"tg://proxy?server=nl2.mtproxy.me.mtproto.ru&port=443&secret=ee3f354f86e59e2c166c83031772d92d6379612e7275",
+"tg://proxy?server=a4.ru.nuvira.cc.mtproto.ru&port=443&secret=ee470cb2b8b29aeadfbdf8a2f7bee5ca3b62726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=c3.ru.nuvira.cc.mtproto.ru&port=443&secret=ee470cb2b8b29aeadfbdf8a2f7bee5ca3b62726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=random.1.mtproto.ru&port=443&secret=ee4628a25fc4e5296ba73238298c93fc756d61782e7275",
+"tg://proxy?server=ab.x5retail.org.mtproto.ru&port=443&secret=eee67e7cc2d997b34bc1cd2a4b8f3fc07e6c6b2e78352e7275",
+"tg://proxy?server=nl.mtproxy.me.mtproto.ru&port=443&secret=ee3f354f86e59e2c166c83031772d92d6379612e7275",
+"tg://proxy?server=ru4.mtproxy.me.mtproto.ru&port=443&secret=ee3f354f86e59e2c166c83031772d92d6379612e7275",
+"tg://proxy?server=a1.ru.nuvira.cc.mtproto.ru&port=443&secret=ee470cb2b8b29aeadfbdf8a2f7bee5ca3b62726f777365722e79616e6465782e636f6d",
+"tg://proxy?server=c1.ru.nuvira.cc.mtproto.ru&port=443&secret=ee470cb2b8b29aeadfbdf8a2f7bee5ca3b62726f777365722.79616e6465782e636f6d",
+"tg://proxy?server=de.mtproxy.me.mtproto.ru&port=443&secret=ee3f354f86e59e2c166c83031772d92d6379612e7275"
+];
+
+// =================== ЛОГИКА ===================
+
+let page = 1;
+const perPage = 10;
+
+function render(){
+    const grid=document.getElementById('grid');
+    grid.innerHTML='';
+
+    const start=(page-1)*perPage;
+    const items=proxies.slice(start,start+perPage);
+
+    items.forEach((p,i)=>{
+        const btn=document.createElement('button');
+        btn.className='proxy';
+        btn.textContent='Прокси '+(start+i+1);
+        btn.onclick=()=>location.href=p;
+        grid.appendChild(btn);
+    });
+}
+
+function switchPage(){
+    const toggle=document.getElementById('toggle');
+    toggle.classList.toggle('active');
+
+    page = page === 1 ? 2 : 1;
+    render();
+}
+
+render();
+
+// =================== SHARE ===================
+
+function share(){
+    const url="https://mrrdanya.github.io/Proxy/";
+
+    if(navigator.share){
+        navigator.share({
+            title:'Telegram Прокси',
+            text:'Рабочие прокси для Telegram',
+            url
         });
+    }else{
+        navigator.clipboard.writeText(url);
+        alert("Ссылка скопирована");
+    }
+}
 
-        // Кнопка "Поделиться"
-        document.getElementById('shareBtn').addEventListener('click', async () => {
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'Telegram Прокси',
-                        text: 'Прокси для Telegram, если один не работает -- попробуй другой',
-                        url: siteUrl
-                    });
-                } catch (err) {
-                    console.log('Отменено или ошибка:', err);
-                }
-            } else {
-                // Если Web Share API не поддерживается, копируем в буфер
-                try {
-                    await navigator.clipboard.writeText(siteUrl);
-                    const btn = document.getElementById('shareBtn');
-                    const originalText = btn.innerHTML;
-                    btn.innerHTML = '✅ Ссылка скопирована!';
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                    }, 2000);
-                } catch (err) {
-                    alert('Не удалось скопировать ссылку. Скопируйте вручную: ' + siteUrl);
-                }
-            }
-        });
+</script>
 
-        // ============================================
-        // ВАШИ 10 ПРОКСИ
-        // ============================================
-        const proxies = [
-            "tg://proxy?server=77.221.140.46&port=8443&secret=7lGCP4KcxEDl19RqQ4-5fxR2a3ZkMzMxLm9rY2RuLnJ1",
-            "tg://proxy?server=213.219.212.245&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
-            "tg://proxy?server=37.139.34.153&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
-            "tg://proxy?server=37.139.32.18&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
-            "tg://proxy?server=146.185.242.117&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
-            "tg://proxy?server=146.185.209.244&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
-            "tg://proxy?server=he.65.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
-            "tg://proxy?server=he.17.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
-            "tg://proxy?server=he.17.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d",
-            "tg://proxy?server=he.108.mtproto.ru&port=443&secret=ee2111222233334444555566667777888862726f777365722e79616e6465782e636f6d"
-        ];
-
-        const leftColumn = document.getElementById('leftColumn');
-        const rightColumn = document.getElementById('rightColumn');
-
-        proxies.forEach((proxy, index) => {
-            const button = document.createElement('button');
-            button.textContent = `Прокси ${index + 1}`;
-            button.addEventListener('click', () => {
-                window.location.href = proxy;
-                console.log(`Прокси ${index + 1} активирована:`, proxy);
-            });
-            
-            if (index < 5) {
-                leftColumn.appendChild(button);
-            } else {
-                rightColumn.appendChild(button);
-            }
-        });
-    </script>
 </body>
 </html>
