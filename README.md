@@ -144,7 +144,7 @@ button.proxy:hover{
 // =================== ПРОКСИ ===================
 
 const proxies = [
-"tg://proxy?server=77.221.140.46&port=8443&secret=7lGCP4KcxEDl19RqQ4-5fxR2a3ZkMzMxLm9rY2RuLnJ1",
+"tg://proxy?server=146.185.211.126&port=443&secret=ee1e36377253a29133d290f3d14ae0163873756e342d32302e757365726170692e636f6d",
 "tg://proxy?server=213.219.212.245&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
 "tg://proxy?server=37.139.34.153&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
 "tg://proxy?server=37.139.32.18&port=443&secret=9f3c7a8d2e4b1c6f5a7d8e9b0c2f4a1d",
